@@ -16,16 +16,43 @@ public class _01_IntroToArrayLists {
 		// 3. Print all the Strings using a standard for-loop
 		for (int i = 0; i < list.size(); i++) {
 			String s = list.get(i);
-			System.out.println("String at element " + i + " " + s);
+			System.out.println("String at element " + i + ": " + s);
+		}
+		System.out.println("");
+
+		// 4. Print all the Strings using a for-each loop
+		System.out.println("All Strings:");
+		for (int i = 0; i < list.size(); i++) {
+			String s = list.get(i);
+			System.out.print(s + ", ");
 		}
 		System.out.println("\n");
 
-		// 4. Print all the Strings using a for-each loop
-
 		// 5. Print only the even numbered elements in the list.
+		System.out.println("Evens:");
+		for (int i = 0; i < list.size(); i += 2) {
+			String s = list.get(i);
+			System.out.print(s + ", ");
+		}
+		System.out.println("\n");
 
 		// 6. Print all the Strings in reverse order.
+		System.out.println("Reverse Order:");
+		for (int i = list.size()-1; i >= 0; i--) {
+			String s = list.get(i);
+			System.out.print(s + ", ");
+		}
+		System.out.println("\n");
 
 		// 7. Print only the Strings that have the letter 'e' in them.
+		System.out.println("Contains 'e':");
+		for (int i = 0; i < list.size(); i++) {
+			String s = list.get(i);
+			if (list.get(i).contains("e")) {
+				System.out.print(s + ", ");
+			}
+		}
+		System.out.println("");
+
 	}
 }
