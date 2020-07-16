@@ -15,6 +15,9 @@ public class HangMan implements KeyListener {
 	JLabel label;
 	Stack<String> stack;
 
+	String currentWord;
+	int lives;
+
 	public static void main(String[] args) {
 		new HangMan().setup();
 	}
@@ -32,6 +35,12 @@ public class HangMan implements KeyListener {
 		frame.pack();
 		frame.setVisible(true);
 
+		resetGame();
+		startGame();
+	}
+
+	void resetGame() {
+		System.out.println("resetGame");
 		int totalWords = Utilities.getTotalWordsInFile("dictionary.txt");
 		int wordCount = Integer
 				.parseInt(JOptionPane.showInputDialog("Please set the randomizer for the number of playable words:"));
@@ -41,22 +50,75 @@ public class HangMan implements KeyListener {
 			stack.push(word);
 			System.out.println(word);
 		}
-
-		startGame();
 	}
 
 	void startGame() {
-		String currentWord = stack.pop();
+		System.out.println("startGame");
+		lives = 5;
+		label.setText("");
+
+		if (stack.size() == 0) {
+			String end = JOptionPane.showInputDialog("You're out of words! Would you like to play again? Yes/No");
+			if (end.equals("Yes")) {
+				resetGame();
+			}
+
+			else {
+				frame.dispose();
+				return;
+			}
+		}
+
+		currentWord = stack.pop();
 		System.out.println(currentWord);
-		for(int i = 0; i < currentWord.length(); i++) {
+		for (int i = 0; i < currentWord.length(); i++) {
 			label.setText(label.getText() + "-");
+		}
+	}
+
+	void endGame() {
+		String end = JOptionPane.showInputDialog("Would you like to play again? Yes/No");
+		if (end.equals("Yes")) {
+			startGame();
+		}
+
+		else {
+			frame.dispose();
+
 		}
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
+		// determine if key typed is a letter in the word
+		String word = label.getText();
+		String output = "";
+		char typed = e.getKeyChar();
+		boolean found = false;
+		for (int i = 0; i < currentWord.length(); i++) {
+			if (typed == currentWord.charAt(i)) {
+				found = true;
+				output += typed;
+			}
 
+			else {
+				output += word.charAt(i);
+			}
+		}
+		if (found == false) {
+			lives--;
+		}
+
+		if (lives <= 0) {
+			endGame();
+		}
+
+		label.setText(output);
+		if (output.equals(currentWord)) {
+			JOptionPane.showMessageDialog(null, "Congrats! You won!");
+			startGame();
+		}
 	}
 
 	@Override
