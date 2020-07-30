@@ -42,8 +42,7 @@ public class HangMan implements KeyListener {
 	void resetGame() {
 		System.out.println("resetGame");
 		int totalWords = Utilities.getTotalWordsInFile("dictionary.txt");
-		int wordCount = Integer
-				.parseInt(JOptionPane.showInputDialog("Please set the randomizer for the number of playable words:"));
+		int wordCount = Integer.parseInt(JOptionPane.showInputDialog("Please set the randomizer for the number of playable words:"));
 
 		for (int i = 0; i < wordCount; i++) {
 			String word = Utilities.readRandomLineFromFile("dictionary.txt");
