@@ -59,23 +59,23 @@ public class _02_LogSearch implements MouseListener {
 		add = new JButton();
 		search = new JButton();
 		view = new JButton();
-		//remove = new JButton();
+		remove = new JButton();
 		
 		add.addMouseListener(this);
 		search.addMouseListener(this);
 		view.addMouseListener(this);
-		//remove.addMouseListener(this);
+		remove.addMouseListener(this);
 		
 		frame.add(panel);
 		panel.add(add);
 		panel.add(search);
 		panel.add(view);
-		//panel.add(remove);
+		panel.add(remove);
 		
 		add.setText("ADD");
 		search.setText("SEARCH");
 		view.setText("VIEW");
-		//remove.setText("REMOVE");
+		remove.setText("REMOVE");
 		
 		frame.setVisible(true);
 		frame.setSize(400, 200);
@@ -86,6 +86,12 @@ public class _02_LogSearch implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
 		if(e.getSource() == add) {
 			int id = Integer.parseInt(JOptionPane.showInputDialog("ID number:"));
 			String name = JOptionPane.showInputDialog("Name:");
@@ -93,23 +99,38 @@ public class _02_LogSearch implements MouseListener {
 		}
 		
 		else if(e.getSource() == search) {
-			String searchedName = JOptionPane.showInputDialog("Enter an ID number:");
-			for()
+			int searchedID = Integer.parseInt(JOptionPane.showInputDialog("Enter an ID number:"));
+			String name = log.get(searchedID);
+			if(name == null) {
+				JOptionPane.showMessageDialog(null, "Couldn't find name");
+			}
+			
+			else {
+				JOptionPane.showMessageDialog(null, name);
+			}
 		}
 		
 		else if(e.getSource() == view) {
-			
+			String s = "";
+			for(int i : log.keySet()) {
+				s += i + " " + log.get(i) +" \n";
+			}
+			JOptionPane.showMessageDialog(null, s);
 		}
 		
 		else if(e.getSource() == remove) {
+			int searchedID = Integer.parseInt(JOptionPane.showInputDialog("Enter an ID number:"));
+			String name = log.get(searchedID);
+			if(name == null) {
+				JOptionPane.showMessageDialog(null, "Couldn't find name");
+			}
 			
+			else {
+				log.remove(searchedID);
+				log.remove(name);
+				JOptionPane.showMessageDialog(null, searchedID + " (" + name + ") has been removed");
+			}
 		}
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
